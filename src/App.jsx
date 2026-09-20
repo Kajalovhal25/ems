@@ -4,6 +4,8 @@ import EmplyoyeeDashboard from "./components/Dashboard/EmplyoyeeDashboard";
 import { useEffect } from "react";
 import { getLocalStorage, setLocalStorage } from "./utils/localStorage";
 import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthProvider";
 
 function App() {
   
@@ -11,19 +13,19 @@ function App() {
 
   const handleLogin =(email,password)=>{  
     if (email =='admin@me.com' && password == '123'){
-      console.
+      setUser('admin');
     }else if(email == 'employee@me.com' && password == '123'){
-      console.log('employee here');
+      setUser('employee');
     }else{
     alert('Invalid credentials');
     }
   handleLogin('admin@me.com', '123');
 
+  const date = useContext(AuthContext);
   return (
     <>
       {!user ? <Login handleLogin={handleLogin} />:''}
-      {/*<EmplyoyeeDashboard />*/}
-      {/*<AdminDashboard/>*/}
+      {user == 'admin' ? <AdminDashboard /> : <EmplyoyeeDashboard />}
     </>
   );
   };
